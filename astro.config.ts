@@ -37,5 +37,6 @@ export default defineConfig({
     mdx(),
   ],
   site: 'https://jewelism.github.io/',
+  base: '/jewelism.github.io',
   outDir: 'docs',
 })
