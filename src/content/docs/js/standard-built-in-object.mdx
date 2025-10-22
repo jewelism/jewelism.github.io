@@ -1,0 +1,40 @@
+---
+layout: ../../../layouts/BlogPost.astro
+title: 표준 내장 객체
+parent: Javascript
+---
+
+# 표준 내장 객체
+
+표준 내장 객체(built-in 빌트인 객체 혹은 Standard Built-in object)는 ECMAScript 사양에 정의된 JavaScript 언어의 일부인 객체입니다. \(예: String, Math, RegExp, Object, Function 등\)
+
+## BigInt
+
+number는 최대 2^53-1 까지 표현할 수 있는 원시타입인데, 이것을 극복하기 위해서 만들어진 내장 객체이다.
+
+거의 필요하지않았으므로.. 꽤 최근에 나온 스펙이다. caniuse를 잘 살펴보고 사용하자
+
+사용방법은 아래와 같다.
+
+```js
+const bigInt1 = BigInt('123123');
+const bigInt2 = 123123n;
+
+bigInt1 === bigInt2 //true
+
+typeof bigInt1 // 'bigint'
+```
+
+위처럼 명확히 number와 타입이 구분되어있고, 마치 primitive type처럼 비교도 가능하다.
+
+다만 BigInt는 Math객체를 사용 할 수 없고, Number와 연산하면 안된다.
+
+연산하려면 Number를 BigInt로 변환하는게 안전하다. BigInt를 Number로 변환하면 정확성을 보장할 수 없다.
+
+그리고 기본적으로는 직렬화 할 수 없다. 하고싶다면 toJSON prototype을 구현하면 된다.
+
+```js
+BigInt.prototype.toJSON = function() {
+  return this.toString();
+}
+```

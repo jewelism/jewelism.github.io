@@ -1,0 +1,226 @@
+---
+layout: ../../../layouts/BlogPost.astro
+title: Phaser3
+---
+# Phaser3
+
+Phaser3 js 게임엔진에 대한 포스트입니다.
+
+
+# 물리엔진
+
+## Arcade Physics
+
+Arcade Physics는 Phaser에서 기본적으로 제공하는 물리엔진이다. Arcade Physics는 물리엔진이라고 하기에는 너무 단순하고, 무거운 물체들의 충돌을 계산하는데는 적합하지 않다. 하지만, 빠르고 간단하게 충돌을 계산할 수 있기 때문에, 게임의 대부분의 요소들에 적합하다.
+
+```Physics.body.setImmovable()``` 메서드를 사용하면, 물리엔진이 해당 물체를 움직이지 않도록 할 수 있다.
+
+immovable이 설정된 객체들끼리의 collider를 설정하면 서로 충돌이 발생하지 않는다.
+
+---
+# UI 만들기
+
+Phaser3에서 UI를 쉽게 만들고 관리하는 방법에 대해 정리하려고 한다.
+
+## UI Scene 분리하기
+
+UI만을 위한 Scene을 만들어서 관리하는 것이 좋다.
+
+단순히 Scene을 하나 추가하고 scene을 launch하는 것으로 UI Scene을 분리할 수 있다.
+
+UI만의 Scene을 갖게되면 코드를 분리할 수 있고, UI를 show, hidden처리, camera zoom에 영향을 안받게 하는 처리등 제어가 쉬워진다.
+
+```js
+// in InGameScene create method
+this.scene.launch('InGameUIScene');
+```
+
+## 타이머 예제
+
+뷰포트 상단에 타이머를 표시하고, 타이머가 끝나면 callback을 호출하는 예제이다.
+
+```js
+// InGameUIScene.ts
+createTimer(min: number, callback: () => void) {
+  let remainingTime = min * 60;
+  const inGameScene = this.scene.get('InGameScene') as InGameScene;
+
+  const remainingTimeText = this.add
+    .text(this.cameras.main.centerX, 10, convertSecondsToMinSec(remainingTime), {
+      fontSize: '20px',
+      color: '#ffffff',
+      stroke: '#000000',
+      strokeThickness: 2,
+    })
+    .setOrigin(0.5, 0)
+    .setScrollFactor(0);
+
+  const timer = this.time.addEvent({
+    delay: 1000,
+    callback: () => {
+      if (inGameScene.player.body.isDestroyed()) {
+        return;
+      }
+      remainingTime--;
+      remainingTimeText.setText(convertSecondsToMinSec(remainingTime));
+      if (remainingTime < 0) {
+        callback();
+        remainingTimeText.destroy();
+        timer.destroy();
+      }
+    },
+    loop: true,
+  });
+}
+```
+
+```js
+// InGameScene.ts
+const inGameUIScene = this.scene.get('InGameUIScene') as InGameUIScene;
+inGameUIScene.createTimer(10, () => {
+  // do something when timer is over
+});
+```
+
+## DOM을 이용한 UI그리기
+
+html의 button이나 input처럼 interaction이 필요하다면 DOM을 이용한 방법이 좋고, interaction이 필요하지 않다면 Phaser의 Graphics를 이용한 방법이 좋다.
+
+DOM을 이용한 방법은 Phaser의 Scene에 DOM을 추가하는 방법이다.
+
+DOM을 추가하는 방법은 다음과 같다.
+
+```javascript
+this.add.dom(x, y, element);
+```
+
+DOM을 추가하면 Phaser의 Scene에 DOM이 추가되고, Phaser의 Scene에 추가된 DOM은 Phaser의 Scene에 추가된 Sprite처럼 Phaser의 Scene에 추가된다.
+
+프론트 개발자라면 DOM을 이용한 방법이 더 친숙할것이다. API가 매우 유사하기 때문이다.
+
+HTML element는 실제 html로 작성하고, phaser에서 불러오면 된다.
+
+```js
+this.load.html('upgrade', 'phaser/upgrade.html');
+
+new Phaser.GameObjects.DOMElement(scene, 50, 50).createFromCache('player_state');
+```
+
+html, body 등의 태그도 굳이 필요없다. 실제 필요한 코드조각만 추가하자.
+---
+
+# 바닥 만들기
+
+어떤 아케이드 게임을 만든다고 가정했을때, 적들이 부딪혀도 피해를 받지않는 바닥이 필요할때 유용할거같은 코드다.
+
+tiled에서 오브젝트 레이어를 생성하고 그 좌표에 rect를 생성한다.
+
+```js
+const safeAreaPoints = map.filterObjects("SafeArea", ({ name }) => {
+  return name.includes("SafeArea");
+});
+```
+
+맵에서 필터링된 오브젝트들(여러개라면)의 좌표를 가져온다.
+
+```js
+this.safeAreas = safeAreaPoints.map(({ x, y, width, height }) => {
+  const safeArea = this.add.rectangle(x, y, width, height);
+  // safeArea.setFillStyle(0x00ff00, 0.5);
+
+  return new Phaser.Geom.Rectangle(
+    safeArea.x,
+    safeArea.y,
+    safeArea.width,
+    safeArea.height
+  );
+});
+```
+
+좌표를 가져와서 ```Phaser.Geom.Rectangle``` 객체를 생성한다.
+
+눈으로 확인하고싶다면 ```setFillStyle``` 메서드를 사용해서 색을 채워보자.
+
+```js
+const isSafe = this.safeAreas.some((safeArea) => {
+  return Phaser.Geom.Rectangle.Contains(
+    safeArea,
+    this.player.x,
+    this.player.y
+  );
+});
+```
+
+```Contains``` 메서드를 사용해서 플레이어의 좌표가 safeArea에 포함되어있는지 확인한다.
+
+이런 방법으로 활용해보면 좋다.
+
+
+---
+# tiled
+
+tiled map editor를 사용하여 맵을 만들고, Phaser에서 사용하는 방법을 알아보자.
+
+## tiled map editor
+
+tiled map editor는 맵을 만들어주는 툴이다. [tiled map editor](https://www.mapeditor.org/)에서 다운로드 받을 수 있다.
+
+## Phaser에서 tiled map editor 사용하기
+
+### 맵 만들기
+
+tiled map editor를 실행하고, 새로운 맵을 선택한다. encoding은 base64(uncompression)로 설정
+
+맵을 완성하고나면 별도로 export 할 필요는 없고 json타입으로 저장해두면 된다.
+
+### Phaser에서 맵 사용하기
+
+```js
+preload() {
+  this.load.tilemapTiledJSON("map4", "assets/tiled/3.json");
+  this.load.image("Terrian", "assets/tiled/Tile1.0.1/Terrian.png");
+  this.load.image("vegetation", "assets/tiled/Tile1.0.1/vegetation.png");
+  this.load.spritesheet("player", "assets/Char2/Char2_idle_16px.png", {
+    frameWidth: 16,
+    frameHeight: 16,
+  });
+  this.load.spritesheet("exit", "assets/tiled/Tile1.0.1/Dungeon.png", {
+    frameWidth: 16,
+    frameHeight: 16,
+    startFrame: 86,
+    endFrame: 86,
+  });
+  this.load.spritesheet("pixel_animals", "assets/pixel_animals.png", {
+    frameWidth: 16,
+    frameHeight: 16,
+  });
+}
+create() {
+  const map = this.make.tilemap({
+    key: "map4",
+  });
+  const vegetationTiles = map.addTilesetImage("vegetation", "vegetation");
+  const terrianTiles = map.addTilesetImage("Terrian", "Terrian");
+  map.createLayer("bg", terrianTiles);
+
+  const collision_layer = map.createLayer("bg_collision", [
+    terrianTiles,
+    vegetationTiles,
+  ]);
+  collision_layer.setCollisionByExclusion([-1]);
+
+  const playerSpawnPoint = map.findObject("PlayerSpawn", ({ name }) => {
+    return name === "PlayerSpawn1";
+  });
+  const exitPoint = map.findObject("Exit", ({ name }) => {
+    return name === "Exit";
+  });
+  const duckSpawnPoints = map.filterObjects("Duck", ({ name }) => {
+    return name.includes("Duck");
+  });
+}
+```
+
+json파일을 로드한다고해서 tiled 에디터에서 사용했던 이미지 바이너리가 json에 포함될리가 없으므로 같이 로드해줘야한다.
+
+특이점으로는 ```this.make.tilemap``` 에서 key는 씬에 관계없이 고유한 값이어야한다.

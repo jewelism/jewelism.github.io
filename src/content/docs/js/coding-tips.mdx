@@ -1,0 +1,28 @@
+---
+layout: ../../../layouts/BlogPost.astro
+title: 코딩 가이드 & 팁
+parent: Javascript
+---
+
+# 코딩 가이드 & 팁
+
+## Swap
+
+변수의 값을 서로 바꿀때
+
+es6 이전
+```js
+var a = 1;
+var b = 2;
+var temp = a;
+a = b;
+b = temp;
+```
+
+ES6
+```js
+let a = 1;
+let b = 2;
+[b, a] = [a, b];
+```
+

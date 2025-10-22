@@ -1,0 +1,28 @@
+---
+import Comments from "../components/Comments.astro";
+// ... 다른 import문들
+
+interface Props {
+  title: string;
+  // ... 다른 props
+}
+
+const { title } = Astro.props;
+// 현재 페이지의 pathname을 가져옵니다
+const pathname = Astro.url.pathname;
+---
+
+<html lang="ko">
+  <head>
+    <title>{title}</title>
+    <!-- ... 다른 head 요소들 -->
+  </head>
+  <body>
+    <main>
+      <article>
+        <slot />
+      </article>
+      <Comments pathname={pathname} />
+    </main>
+  </body>
+</html>

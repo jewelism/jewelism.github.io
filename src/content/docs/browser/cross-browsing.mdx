@@ -1,0 +1,69 @@
+---
+title: 크로스 브라우징 이슈
+parent: browser
+layout: ../../../layouts/BlogPost.astro
+---
+
+여러 브라우저에서 같은 시각적 표현과 기능을 제공해야함을 뜻한다.
+
+브라우저마다 자바스크립트의 버전이 다를 수 있고, html, css도 마찬가지다.
+
+모던웹은 IE9이상을 지원하는게 일반적이다.
+
+마크업 개발자 하는 친구가 reset.css를 작성하는 것을 봤는데,
+
+이게 왜 하는지 궁금해서 검색해봤더니,
+
+브라우저마다 같은 태그도 렌더링하고나면 생김새가 조금씩 다르다.
+
+이것을 초기화해서 같게 만들어주는 것이라고 한다.
+
+reset.css보단 https://necolas.github.io/normalize.css 가 선호된다.
+
+reset과는 다르게 무조건 덮어쓰기하는게 아니라, 다른 부분만 변경해준다. npm패키지로 쓸수있는건 덤.
+
+polyfill이라는 개념도 있다.
+
+하위브라우저에서도 최신스펙을 사용할 수 있게 해준다. ex) ES6 Map, Set
+
+폴리필이 불가능한 기능도 있다. 예를 들어 ES6의 Proxy
+
+크로스브라우징을 위해 ES6+ 문법을 es5문법으로 변환시켜주는 일을 하기도 하는데,
+
+그것은 [babel](/fe/webpack-babel#babel)이라는 트랜스파일러가 해준다.
+
+아래는 뷰 슬랙방에서 슬쩍한 이미지이다.
+
+ie checker라고 한다..ㅋㅋ
+
+이런식으로 ie의 버전을 확인한다고 한다.
+
+<img src="/images/ieChecker.png" />
+
+# 크로스 브라우징 이슈들
+
+## 스크립트 동적로드시 인코딩 이슈
+
+캐싱된 js가 인코딩이 깨지는 경우가 있다.
+
+예를 들어, 다른페이지를 갔다가 뒤로가기로 되돌아오는경우 script는 캐싱된다.
+
+그런데 이때 IE, 레거시엣지에서 인코딩이 깨진다. (레거시 엣지는 첨부터 깨진다.)
+
+스크립트로드 뒤에 sessionStorage를 이용해 version처럼 쿼리스트링을 붙여서 캐싱을 해제시켜도 레거시엣지에서는 여전히 해결되지않는다.
+
+script를 동적으로 로드시, src를 지정하기 전에 charset을 먼저 지정해주어야 캐싱이 된 js에서도 정상작동한다고 한다.
+
+```js
+const script = document.createElement("script");
+script.charset = charset;
+script.src = url;
+```
+
+순서가 중요하다. 무조건 charset을 먼저 세팅해야한다.
+
+그래야 모든 브라우저에서 인코딩 이슈가 안 생긴다.
+
+## 모바일 삼성브라우저 디버깅
+
+https://hub.samsunginter.net/docs/remote-debugging/

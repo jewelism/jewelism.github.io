@@ -1,0 +1,60 @@
+---
+layout: ../../../layouts/BlogPost.astro
+title: Web Browser
+---
+
+브라우저는 입력된 URI에 따라 자원을 가져오고, 해당 자원을 브라우저내에 표시한다.
+
+보통은 HTML이지만 다른 확장자들도 많이 지원한다. (이미지, js, json, PDF등등..)
+
+주소표시줄, 뒤로가기, 앞으로가기, 새로고침등.. 브라우저의 UI와 [렌더링 엔진](#렌더링엔진) 사이의 동작을 제어하는게 브라우저 엔진이라고 한다.
+
+### how web works
+
+https://github.com/vasanthk/how-web-works
+
+### 렌더링 엔진
+
+URI로 요청한 자원을 표시한다.
+
+HTML과 CSS를 파싱한다.
+
+HTML 태그들을 DOM노드로 변환한다 => DOM tree 생성
+
+<img src="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/image017.png" alt="parse html" />
+
+CSS 파싱 => CSSOM tree 생성
+
+DOM tree, CSSOM tree의 혼합 => rendering tree(frame tree) => 비 시각적 DOM은 제외
+
+렌더링 트리 생성이 끝나면 리플로우(배치)가 발생한다. => 각 노드가 화면의 정확한 위치에 표시되는 것을 의미한다.
+
+DOM이나 스타일이 변경되면 [reflow, repaint](./reflow-repaint)가(혹은 둘다) 또 일어난다.
+
+<img src="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/webkitflow.png" alt="webkit flow"/>
+
+### 자바스크립트 엔진
+
+자바스크립트 엔진(크롬에선 V8)은 자바스크립트 코드를 해석하고 실행한다.
+
+HTML태그를 파싱하다가 script 태그를 만나면 스크립트를 가져오고 실행이 끝날때까지 블로킹된다.
+
+defer옵션이 있다면 자바스크립트를 나중에 실행한다.
+
+async 옵션이 있다면 다른 스레드에서 실행한다.
+
+## 웹브라우저 동작과정 요약
+
+url을 입력하고 엔터를 누르면...
+
+1. 요청하는 리소스가 브라우저 캐시에 있는지 확인합니다.
+2. 없으면 요청한 호스트정보를 로컬에서 먼저 찾고, 없으면 dns에서 찾아 ip를 얻습니다.
+3. 얻은 ip를 기반으로 TCP/IP 커넥션을 맺고 리소스를 다운받습니다.
+4. 다운받은 리소스를 기반으로 화면에 그립니다.
+5. 요청한 리소스가 html이라면, 렌더링 엔진이 html, css를 파싱하여 html은 dom tree, css는 cssom tree를 생성하고, 둘을 합쳐서 render tree를 생성합니다.
+6. 뷰포트 내에서 각 노드의 정확한 위치와 크기를 정확하게 계산하는 리플로우가 일어나며,
+7. 렌더링 트리의 각 노드를 화면의 실제 픽셀로 변환하는 페인팅과정이 일어나고
+8. 사용자가 화면을 볼 수 있게 됩니다.
+---
+
+ref: https://d2.naver.com/helloworld/59361

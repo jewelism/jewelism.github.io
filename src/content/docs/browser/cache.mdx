@@ -1,0 +1,38 @@
+---
+layout: ../../../layouts/BlogPost.astro
+title: 브라우저 캐시
+---
+
+당연히 크롬 기준..
+
+```
+Caching
+Chrome employs two caches — an on-disk cache and a very fast in-memory cache.
+The lifetime of an in-memory cache is attached to the lifetime of a render process,
+which roughly corresponds to a tab. 
+Requests that are answered from the in-memory cache are invisible to the web request API. 
+If a request handler changes its behavior (for example, the behavior according to which requests are blocked),
+a simple page refresh might not respect this changed behavior. 
+To make sure the behavior change goes through, 
+call handlerBehaviorChanged() to flush the in-memory cache. 
+But don't do it often; flushing the cache is a very expensive operation. 
+You don't need to call handlerBehaviorChanged() after registering or unregistering an event listener.
+```
+
+구글 번역의 도움을 받으면..
+
+```
+캐싱
+Chrome은 온 디스크 캐시와 매우 빠른 인 메모리 캐시라는 두 가지 캐시를 사용합니다.
+인 메모리 캐시의 수명은 렌더링 프로세스의 수명에 연결되며 이는 대략 탭에 해당합니다.
+인 메모리 캐시에서 응답 한 요청은 웹 요청 API에 표시되지 않습니다.
+요청 처리기가 동작을 변경하면 (예: 요청이 차단 된 동작)
+간단한 페이지 새로 고침으로 인해 변경된 동작을 고려하지 않을 수 있습니다.
+동작 변경을 확인하려면 handlerBehaviorChanged ()를 호출하여 메모리 내 캐시를 플러시하십시오.
+그러나 자주하지 마십시오.
+캐시 플러시는 비용이 많이 드는 작업입니다.
+이벤트 리스너를 등록 또는 등록 해제 한 후
+handlerBehaviorChanged()를 호출 할 필요가 없습니다.
+```
+
+[handlerBehaviorChanged 참고자료](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/handlerBehaviorChanged)

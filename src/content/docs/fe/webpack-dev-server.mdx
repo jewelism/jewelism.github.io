@@ -1,0 +1,74 @@
+---
+layout: ../../../layouts/BlogPost.astro
+title: webpack-dev-server
+parent: FE
+---
+
+# webpack-dev-server
+
+개발환경에서 js를 빌드하고 어떤 html에서 해당 스크립트를 불러온다고 했을때,
+
+단순히 html을 file 프로토콜로 열게되면, 브라우저의 same origin policy에 의해 불러올 수 없는 경우(상위 폴더가 같은경우만 허용)도 있습니다.
+
+해결하려면 빌드 후 nodejs http-server 패키지를 사용하거나, 웹서버를 이용해서 띄우거나, was를 개발하거나해서 http프로토콜로 프로젝트를 실행합니다.
+
+여러가지 방법이 있지만 모두 번거롭고, 매 프로젝트마다 이렇게 하긴 정말 피곤한 일 입니다.
+
+그것을 해결해주는 것이 webpack-dev-server입니다.
+
+결국 nodejs 위에서 실행되는것이겠지만, 직접 개발할 필요도 없고, webpack의 플러그인이므로 아래와 같이 간편하고 설정, 사용할 수 있다는 장점이 있습니다.
+
+또 하나의 장점으로는 클라이언트측 코드를 수정하면 hot-loader 기능으로 자동으로 리로드됩니다.
+
+document를 보면 스크롤해야 할 정도로 기능도 많습니다.
+
+```js
+// webpack.config.js
+
+devServer: {
+  contentBase: __dirname + "docs",
+  inline: true,
+  hot: true,
+  host: "localhost",
+  port: 8080
+},
+```
+
+```json
+{
+  ...,
+  "start": "webpack-dev-server"
+}
+//npm start
+```
+
+---
+
+# webpack-dev-server Proxy
+
+webpack-dev-server의 정말 유용한 기능중 하나인 proxy도 마찬가지로 브라우저의 same origin policy때문에 개발됐습니다.
+
+백엔드에서 처리해주지않는 이상 프로토콜 도메인 포트번호중에 하나라도 다르면 프론트단에서 백엔드 API와 통신할 수 없는데,
+
+로컬에서 서버를 하나띄워놓고 API를 대신 호출하는 방식으로 cors의 불편함을 해소시켜줍니다.
+
+아래와 같이 간단하게 사용할 수 있습니다.
+
+```js
+devServer: {
+  proxy: {
+    '/api': {
+      target: 'http://localhost:3000',
+      pathRewrite: {'^/api' : ''}
+    }
+  }
+}
+```
+
+---
+
+ref: https://webpack.js.org/configuration/dev-server
+
+https://webpack.js.org/configuration/dev-server/#devserverproxy
+
+https://developer.mozilla.org/ko/docs/Archive/Misc_top_level/Same-origin_policy_for_file:_URIs

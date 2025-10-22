@@ -1,0 +1,76 @@
+---
+layout: ../../../layouts/BlogPost.astro
+title: History API
+---
+
+# History API
+
+브라우저에 내장된 히스토리는 스택의 형태로 구현되어있습니다.(history stack이라고 표현)
+
+DOM의 window객체를 통해 history객체에 접근할 수 있습니다.
+
+```js
+window.history.back(); //뒤로가기
+window.history.forward(); //앞으로가기
+window.history.go(index); //특정 index로 이동
+/*
+history.go() 의 경우, index는 현재 페이지가 0입니다.
+이전페이지로 가려면, history.go(-1) 입니다.
+*/
+window.history.length; //히스토리 스택 갯수
+```
+
+## pushState, replaceState
+
+```js
+window.history.pushState(stateObj, title, URL)
+window.history.replaceState(stateObj, title, URL)
+```
+stateObj: 직렬화할 수 있는 어떤것도 가능합니다. 사용자의 디스크에 저장되며, 최대 640kb로 제한됩니다. 더 크면 예외가 발생합니다.
+
+title: 사용하지않는 예약된 변수입니다. 나중에 사용될 수 있으므로 빈문자열이나 간단한 명칭을 지어주면 좋습니다.
+
+URL: 새로운 히스토리 엔트리의 URL입니다. 새롭게 할당되는 URL은 현재 URL에 기준이므로 절대 경로일 필요는 없습니다. 명시하지않으면 현재 URL로 지정되며, URL이 현재 URL에서 유추될 수 없다면 예외가 발생합니다.
+
+pushState 메소드를 실행하면 주소창에 새롭게 할당된 URL이 표시됩니다.
+
+예를 들어,
+
+```js
+const stateObj = {name:'boseokjung'};
+history.pushState(stateObj, '', 'boseok.html');
+```
+
+이런 코드를 실행하면, boseok.html에 해당하는 주소로 변경되고, popstate 이벤트를 발생시켜 첫번째 파라미터로 지정한 stateObj의 복사본을 가져옵니다. (history.state로 접근)
+
+짧게 설명하자면 기존 API와는 다르게 너무 크지않은 상태를 저장할 수 있고 실제 페이지가 변경되지않더라도 주소를 변경하고 히스토리 스택을 쌓을 수 있습니다.
+
+replaceState는 히스토리 스택을 쌓는대신 현재의 히스토리 엔트리를 변경합니다.
+
+SPA에서 이 API가 유용할 수 있는데, 실제로 react, vue-router가 이 API를 활용해서 라우팅을 구현했습니다.
+
+
+## popstate
+
+popstate 이벤트는 현재 활성화된 히스토리 엔트리에 변화가 있을 때 마다 실행됩니다.
+
+```js
+window.onpopstate = function(event) {
+  alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+};
+
+history.pushState({page: 1}, "title 1", "?page=1");
+history.pushState({page: 2}, "title 2", "?page=2");
+history.replaceState({page: 3}, "title 3", "?page=3");
+history.back(); // alerts "location: http://example.com/example.html?page=1, state: {"page":1}"
+history.back(); // alerts "location: http://example.com/example.html, state: null
+history.go(2);  // alerts "location: http://example.com/example.html?page=3, state: {"page":3}
+```
+
+---
+
+ref
+
+https://developer.mozilla.org/ko/docs/Web/API/History_API
+
+https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate

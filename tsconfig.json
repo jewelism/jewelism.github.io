@@ -1,0 +1,7 @@
+{
+    "include": [".astro/types.d.ts", "**/*"],
+    "compilerOptions": {
+        "moduleResolution": "bundler",
+        "module": "es2022"
+    },
+}
