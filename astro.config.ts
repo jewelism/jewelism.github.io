@@ -14,6 +14,11 @@ export default defineConfig({
           items: ['index', 'about'],
         },
         {
+          label: 'Godot Engine',
+          autogenerate: { directory: 'godot4' },
+          collapsed: true,
+        },
+        {
           label: 'Javascript',
           autogenerate: { directory: 'js' },
           collapsed: true,
