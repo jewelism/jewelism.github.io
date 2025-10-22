@@ -1,17 +1,16 @@
 ---
 // Props로 페이지의 고유 식별자를 받습니다
 interface Props {
-  pathname: string;
+  title: string;
 }
-
-const { pathname } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <div id="comments" class="comments">
   <script
     src="https://utteranc.es/client.js"
     repo="jewelism/jewelism.github.io"
-    issue-term={pathname}
+    issue-term={title}
     label="comments"
     theme="preferred-color-scheme"
     crossorigin="anonymous"

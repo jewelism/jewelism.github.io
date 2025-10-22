@@ -8,8 +8,6 @@ interface Props {
 }
 
 const { title } = Astro.props;
-// 현재 페이지의 pathname을 가져옵니다
-const pathname = Astro.url.pathname;
 ---
 
 <html lang="ko">
@@ -22,7 +20,7 @@ const pathname = Astro.url.pathname;
       <article>
         <slot />
       </article>
-      <Comments pathname={pathname} />
+      <Comments title={title} />
     </main>
   </body>
 </html>
