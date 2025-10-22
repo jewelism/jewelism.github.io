@@ -1,18 +1,18 @@
 ---
-import Comments from "../components/Comments.astro";
-// ... 다른 import문들
+import type { MarkdownLayoutProps } from "astro";
 
-interface Props {
+type Props = MarkdownLayoutProps<{
+  // Define frontmatter props here
   title: string;
-  // ... 다른 props
-}
-
-const { title } = Astro.props;
+  author: string;
+  date: string;
+}>;
+const { frontmatter } = Astro.props;
 ---
 
 <html lang="ko">
   <head>
-    <title>{title}</title>
+    <title>{frontmatter.title}</title>
     <!-- ... 다른 head 요소들 -->
   </head>
   <body>
@@ -20,7 +20,21 @@ const { title } = Astro.props;
       <article>
         <slot />
       </article>
-      <Comments title={title} />
+      <div id="comments" class="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="jewelism/jewelism.github.io"
+          issue-term={frontmatter.title}
+          label="comments"
+          theme="preferred-color-scheme"
+          crossorigin="anonymous"
+          async></script>
+      </div>
+      <!-- <style>
+        .comments {
+          margin-top: 2rem;
+        }
+      </style> -->
     </main>
   </body>
 </html>
