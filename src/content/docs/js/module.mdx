@@ -1,11 +1,7 @@
 ---
 layout: ../../../layouts/BlogPost.astro
 title: js module
-parent: Javascript
 ---
-
-# module
-
 ## export, import
 
 ### es6 모듈
@@ -18,9 +14,11 @@ es6모듈의 import 키워드와 webpack, parcel같은 번들러의 dynamic impo
 
 commonJS와 거의 동일하지만 자체적인 모듈을 사용
 
+```
 module.exports
 
-require\(\)
+require()
+```
 
 ## export와 코드의 실행순서
 
@@ -30,12 +28,12 @@ constants들을 따로따로 구분지어서 작성해놓았을때, 서로 impor
 
 당연히 실행순서에 문제가 있기때문이다.
 
-```javascript
+```js
 console.log("1");
 export * from "./someConstants";
 ```
 
-```javascript
+```js
 // someConstants.js
 console.log("2");
 ```
@@ -44,16 +42,16 @@ console.log("2");
 
 "export" 하는시점에 값을 추출해온다.
 
-## import \* as {Alias}, import {Alias} 차이
+## import \* as \{Alias}, import \{Alias} 차이
 
-```javascript
+```js
 // a.js
 export const a = 1;
 export const b = 2;
 export default 3;
 ```
 
-```javascript
+```js
 import A from "./a";
 import * as B from "./a";
 console.log(A); //3

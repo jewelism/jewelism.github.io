@@ -120,7 +120,7 @@ HelloWorld.vue 처럼, 확장자를 vue로 가지면서,
 
 템플릿, 스크립트, 스타일 순서로 코드를 작성하면 됩니다.
 
-```markup
+```html
 <template>
   <div class="text">
     Good Bye World!
@@ -132,7 +132,7 @@ HelloWorld.vue 처럼, 확장자를 vue로 가지면서,
 
 이제 바로 아래에 작성할 자바스크립트는
 
-```markup
+```html
 <script>
  <!--여기에 스크립트 작성-->
 </script>
@@ -158,7 +158,7 @@ export default {
 
 마찬가지로 style태그로 꼭 묶어주세요
 
-```markup
+```html
 <style>
  <!--여기에 스타일 작성-->
 </style>
@@ -414,7 +414,7 @@ dom을 직접 변경하는 것은 비용이 많이 들어가는 작업입니다.
 
 템플릿에서
 
-```markup
+```html
 <div>1</div>
 <div>2</div>
 <div>3</div>
@@ -424,7 +424,7 @@ dom을 직접 변경하는 것은 비용이 많이 들어가는 작업입니다.
 
 그런데 \[1,2,3,4\]로 데이터가 갱신됐습니다. 화면을 다시 렌더링해야합니다.
 
-```markup
+```html
 <div>1</div>
 <div>2</div>
 <div>3</div>
@@ -432,7 +432,7 @@ dom을 직접 변경하는 것은 비용이 많이 들어가는 작업입니다.
 
 위에서 아래처럼 변경될것입니다.
 
-```markup
+```html
 <div>1</div>
 <div>2</div>
 <div>3</div>
@@ -507,13 +507,13 @@ data: (vm) => ({
 
 이것을 템플릿에 바인딩하기위해, v-for를 사용할수 있습니다.
 
-```markup
+```html
 <div v-for="(item, index) in cardList">{{item.text}}</div>
 ```
 
 대충 예상이 되시나요? 아래와 같이 렌더링되어야할겁니다!
 
-```markup
+```html
 <div>쥬얼리1</div>
 <div>쥬얼리2</div>
 <div>쥬얼리3</div>
@@ -550,7 +550,7 @@ index 1에 해당하는 배열은 기존 배열의 index 2에 해당하는 배�
 
 그러므로 key값을 index가 아닌 고유의 값으로 잘 설정해줍시다.
 
-```markup
+```html
 <div v-for="(item, index) in cardList" :key="item.value">{{item.text}}</div>
 ```
 
@@ -698,7 +698,7 @@ props로 handleChangeText메소드만 간단하게 구현해주면된다.
 
 부모컴포넌트의 템플릿
 
-```markup
+```html
 <search-bar :handle-change-text="handleChangeSearchText"/>
 ```
 
