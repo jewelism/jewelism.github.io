@@ -28,6 +28,16 @@ export default defineConfig({
           autogenerate: { directory: 'browser' },
           collapsed: true,
         },
+        {
+          label: 'Computer Science',
+          autogenerate: { directory: 'cs' },
+          collapsed: true,
+        },
+        {
+          label: 'Git',
+          autogenerate: { directory: 'git' },
+          collapsed: true,
+        },
       ],
       social: [
         { href: 'https://github.com/jewelism', icon: 'github', label: 'GitHub' },
