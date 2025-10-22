@@ -39,8 +39,18 @@ export default defineConfig({
           collapsed: true,
         },
         {
+          label: 'Server',
+          autogenerate: { directory: 'server-side' },
+          collapsed: true,
+        },
+        {
           label: 'Git',
           autogenerate: { directory: 'git' },
+          collapsed: true,
+        },
+        {
+          label: 'Tip',
+          autogenerate: { directory: 'tip' },
           collapsed: true,
         },
       ],
