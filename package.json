@@ -6,7 +6,7 @@
   "author": "jewelry",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && sh build.sh",
     "preview": "astro preview",
     "t": "astro build && npx http-server dist",
     "lint": "eslint . --cache --max-warnings=0"
