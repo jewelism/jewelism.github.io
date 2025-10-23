@@ -63,6 +63,14 @@ export default defineConfig({
         { href: 'https://github.com/jewelism', icon: 'github', label: 'GitHub' },
       ],
       title: 'Jewelry Dev',
+      head: [{
+        tag: 'link',
+        attrs: {
+          rel: 'icon',
+          href: '/favicon.png',
+          type: 'image/png'
+        },
+      }],
     }),
     mdx(),
   ],
