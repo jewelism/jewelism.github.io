@@ -28,7 +28,7 @@ js는 기본적으로 싱글스레드기반 언어이다.
 
 결국 자바스크립트 언어설계자체는 싱글스레드이므로 block되는 코드가 존재한다면 그냥 block된다.
 
-크롬같은경우는 내부적으로 여러 스레드를 사용하는데, [그것은 여기에서..](../browser/chrome)
+크롬같은경우는 내부적으로 여러 스레드를 사용하는데, [그것은 여기에서..](/browser/chrome)
 
 ---
 
@@ -101,7 +101,7 @@ function a() {
 
 컴파일단계에서 전역 컨텍스트가 생기고 [호이스팅](#호이스팅\(Hoisting\))이 일어난다.
 
-ES6는 함수레벨과 블록레벨의 [렉시컬스코프](./scope.md#lexical-scope-static-scope-dynamic-scope)이다.
+ES6는 함수레벨과 블록레벨의 [렉시컬스코프](/js/scope/#lexical-scope-static-scope-dynamic-scope)이다.
 
 함수마다 각각의 함수 컨텍스트가 생성된다.
 
@@ -113,13 +113,13 @@ ES6는 함수레벨과 블록레벨의 [렉시컬스코프](./scope.md#lexical-s
 
 각 컨텍스트객체에는 **VO, scope chain, this** 라는 3가지 프로퍼티가 생성된다.
 
-VO\(Variable Object\) - [arguments](arguments), parameter를 포함한 variable이 존재
+VO\(Variable Object\) - [arguments](/js/arguments), parameter를 포함한 variable이 존재
 
-[scope](./scope) - 접근가능한 VO의 유효범위
+[scope](/js/scope) - 접근가능한 VO의 유효범위
 
-[scope chain](./scope.md#스코프체인)
+[scope chain](/js/scope/#스코프체인)
 
-[this](./this) - this는 기본적으로 전역객체를 가리킨다가 함수를 어떻게 호출하느냐에따라 할당되는값이 결정된다.
+[this](/js/this) - this는 기본적으로 전역객체를 가리킨다가 함수를 어떻게 호출하느냐에따라 할당되는값이 결정된다.
 
 
 [추가적으로 참고할만한 좋은 글](https://velog.io/@tmmoond8/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%9D%B8%ED%84%B0%EB%B7%B0-%ED%9B%84%EA%B8%B0-%EB%A9%B4%EC%A0%91-%EC%A7%88%EB%AC%B8-%EC%A0%95%EB%A6%AC-%EC%9E%91%EC%84%B1-%EC%A4%91#5.-%EC%8B%A4%ED%96%89%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8)
