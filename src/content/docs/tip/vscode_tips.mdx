@@ -1,0 +1,107 @@
+---
+title: vscode tips
+layout: ../../../layouts/BlogPost.astro
+---
+
+## VSCode Change Case 플러그인
+
+vscode에서, 영문의 대소문자를 편하게 바꾸거나 camel, constants 등등
+
+영문자를 타이핑하고 원하는 케이스로 변경시켜주는 플러그인이 있다.
+
+[change-case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case)
+
+플러그인을 설치하고 숏컷으로 등록해놓자.
+
+command + shift + U 가 제일 쓸만한 숏컷.
+
+## VScode 숏컷
+
+맥 기준입니다.. 윈도우 사용자는 command키를 control키로 생각하시면 될거같습니다.. 아마..
+
+### command 창
+
+command + shift + P
+
+숏컷으로 등록해놓지않은 명령어를 찾아서 실행시킬 수 있습니다
+
+혹은 \> 를 지우게되면, 파일을 바로 검색해서 찾아갈 수 있더라구요. 제일 유용합니다. 인텔리제이에서 쉬프트 두번 누르는거하고 비슷해요. 그거보단 좀 손이 더 가고 느리지만..
+
+### 같은 단어 한꺼번에 블록
+
+command + shift + L
+
+replaceAll 같은걸 사용해도 좋지만 저게 더 편하거나 빠를때도 있습니다
+
+## vscode user snippet
+
+역시나 맥 기준입니다
+
+vscode에는 user snippet 기능이 있습니다
+
+snippet은 대충 미리 코드뭉치를 만들어놓고 계속해서 생성해서 사용하는 개념이에요
+
+react에서 매번 컴포넌트를 찍어낼때마다 공통적으로 반복해서 작성해야하는 코드들이 있죠.
+
+예를 들어서
+
+TopBottom.tsx 파일을 생성했다고 합시다.
+
+그러면 파일 내부에 가장 먼저 작성하게되는 내용이 
+
+```js
+const TopBottom = () => {
+  return <div>TopBottom</div>;
+};
+
+export default TopBottom;
+```
+
+이런 모습이죠.
+
+파일이름을 가지고 기본 컴포넌트의 내용을 만들어주는 user snippet 기능을 생성해봅시다.
+
+## 활용방법
+
+```
+1. command + shift + P
+2. snippet 타이핑
+3. Preferences: Configure User Snippets
+```
+글로벌로 생성할지, 특정 프로젝트에만 생성할지 결정합시다. 저는 몇개 안써서 글로벌로 합니다.
+
+특정 프로젝트에 생성하게되면, 프로젝트 내부에 .vscode 디렉토리에 스니펫이 저장됩니다.
+
+이걸로 팀원들과 vscode snippet을 공유할수도 있겠죠.
+
+아래처럼 내용을 수정합니다.
+
+```json
+{
+	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"rcc": {
+		// "scope": "javascript,typescript",
+		"prefix": "rcc",
+		"body": [
+			"const $TM_FILENAME_BASE = () => {",
+			"  return (",
+			"    <div>$TM_FILENAME_BASE</div>",
+			"  );",
+			"}",
+			"",
+			"export default $TM_FILENAME_BASE;"
+		],
+		"description": "Create React Component"
+	}
+}
+```
+
+```$TM_FILENAME_BASE```는 파일 이름을 뜻합니다. 작성하기가 좀 귀찮은 구조로 되어있지만.. 쉽죠?
+
+이제 vscode에서 rcc를 타이핑하면, 자동완성기능이 스니펫을 사용할지 물어봐줍니다!

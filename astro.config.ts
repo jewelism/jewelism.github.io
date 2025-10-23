@@ -34,11 +34,6 @@ export default defineConfig({
           collapsed: true,
         },
         {
-          label: 'Node.js',
-          autogenerate: { directory: 'node' },
-          collapsed: true,
-        },
-        {
           label: 'Computer Science',
           autogenerate: { directory: 'cs' },
           collapsed: true,
@@ -46,11 +41,6 @@ export default defineConfig({
         {
           label: 'Server',
           autogenerate: { directory: 'server-side' },
-          collapsed: true,
-        },
-        {
-          label: 'Git',
-          autogenerate: { directory: 'git' },
           collapsed: true,
         },
         {

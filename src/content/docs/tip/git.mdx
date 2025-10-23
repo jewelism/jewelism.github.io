@@ -1,0 +1,187 @@
+---
+layout: ../../../layouts/BlogPost.astro
+title: Git
+---
+
+## Git 설치 및 설정
+
+git이 설치되어있지않다면, mac 환경이라면 우선 homebrew를 이용하여 git을 설치하자.
+
+```bash
+brew install git
+```
+
+git flow를 사용한다면
+
+```bash
+brew install git-flow
+```
+
+```bash
+git config --global user.name "jewelism"
+git config --global user.email "boseokjung@gmail.com"
+```
+
+## pr을 통해 코드 리뷰하는 절차
+
+1. 원본의 remote repository를 자신의 repository로 fork
+2. 자신의 git repository clone
+3. git remote add upstream 원본 원격 저장소의 주소
+4. 소스수정..
+5. git add 수정한파일 \(git add . 은 모두\)
+6. git commit -m "커밋메시지"
+7. git pull upstream 브랜치이름\(3번에서 추가한 upstream이라는 이름과 일치해야함\)
+8. git push origin 브랜치이름
+9. 원격저장소 웹에서 pull request 작성
+
+혹은
+
+1. remote repository clone
+2. 소스수정..
+3. git add 수정한파일 \(git add . 은 모두\)
+4. git commit -m "커밋메시지"
+5. git pull origin 브랜치
+8. git push origin 브랜치이름
+9. 원격저장소 웹에서 pull request 작성
+
+
+## 대소문자 구분을 안하는 git
+
+git은 대소문자 구분을 하지않아서, 파일이나 디렉토리 이름을 변경할때
+
+단순 대소문자만 변경하는 경우 (common => Common 이런식) 변경으로 구분하지 않는다.
+
+```bash
+git mv common tmp && git mv tmp Common
+```
+
+```bash
+git mv {파일이름} tmp && git mv tmp {변경하고싶은이름}
+```
+
+이런식으로 꼼수써서 변경할 수 있다.
+
+## .gitignore 파일 사용법
+repository에 소스를 올릴때, .gitignore 파일에 특정 디렉토리나 파일 이름을 작성해놓으면,
+
+그 디렉토리나 파일은 제외된다.
+
+.gitignore 예시
+
+```
+/node_modules
+.DS_STORE
+.idea
+
+.env
+```
+
+## 이미 커밋된 파일을 git ignore 하는 방법
+
+gitignore파일을 수정하고 다음명령어를 실행한다.
+
+```bash
+git rm --cached /path/to/file
+```
+
+그 후 커밋하고 푸시하면 된다.
+
+## Git 자격증명 삭제
+
+```bash
+git config --global --unset credential.helper
+git config --system --unset credential.helper
+```
+
+위 명령어를 통해 저장된 자격증명을 삭제할 수 있다.
+
+## Git 패스워드 변경후 에러
+
+remote의 패스워드를 변경하면 로컬에서 푸시할때 아래와 같은 에러가 난다.
+
+로컬에 저장되어있는 패스워드와 리모트 패스워드가 다르기때문.
+
+```bash
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/jewelism/boseok-note.git/'
+```
+
+그냥 아래처럼 초기화해주면 된다.
+
+```bash
+git config --unset credential.helper
+```
+
+이런 문제도 있고, 귀찮기때문에 ssh키를 이용하는걸 추천한다.
+
+## git remote 
+
+remote 확인
+
+```bash
+git remote -v
+```
+
+remote url 변경
+
+```bash
+git remote set-url {alias} {url}
+```
+
+
+## ssh key 생성 및 설정
+
+bitbucket에서 mac 사용시.. \(linux도 해당됨\)
+
+```bash
+ssh-keygen
+```
+
+passphase는 입력하지말고 그냥 빈값으로 계속 엔터만 눌러주자.
+
+그래야 나중에 안귀찮아진다.
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+이걸 프로젝트의 access keys가 아닌, 자신의 계정의 bitbucket의 SSH key에 가서 추가한다.
+
+```bash
+eval 'ssh-agent'
+```
+
+```bash
+#mac
+ssh-add -K ~/.ssh/id_rsa
+
+vi ~/.ssh/config
+```
+
+아래내용을 붙여넣는다
+
+```
+Host *
+  UseKeychain yes
+```
+
+```bash
+#linux
+ssh-add ~/.ssh/id_rsa
+```
+
+ubuntu 에서 사용할 쉘스크립트를 작성해보았다.
+
+주의할점은 ssh-keygen의 default path가 mac과는 다르게\(home\) /root 이다.
+
+```bash
+#!/bin/bash
+
+ssh-keygen;
+
+eval 'ssh-agent';
+ssh-add /root/.ssh/id_rsa;
+cat /root/.ssh/id_rsa.pub;
+exit;
+```
+
