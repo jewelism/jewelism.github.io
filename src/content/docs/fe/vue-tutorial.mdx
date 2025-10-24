@@ -3,6 +3,13 @@ title: Vue Tutorial
 layout: ../../../layouts/BlogPost.astro
 ---
 
+import img from '../../../assets/images/vue-hello.png';
+import img2 from '../../../assets/images/vue-init-project-dir.png';
+import img3 from '../../../assets/images/vue-script-components.png';
+import img4 from '../../../assets/images/vue-3byeworld.png';
+import img5 from '../../../assets/images/vue-3app.png';
+
+
 # Vue Tutorial
 
 ## 개발환경 설정
@@ -48,7 +55,7 @@ http://localhost:8080/
 
 빈페이지가 아닌, 아래와 같은 화면이 나오면 성공
 
-<img src="/images/vue-hello.png" />
+<img src={img.src} width={img.width} height={img.height} alt="vue hello" />
 
 ---
 
@@ -56,7 +63,8 @@ http://localhost:8080/
 
 아래 그림은 생성한 프로젝트의 src/App.vue를 열어본 모습입니다.
 
-<img src="/images/vue-init-project-dir.png" />
+<img src={img2.src} width={img2.width} height={img2.height} alt="vue init project dir" />
+
 
 코드를 보시면, 상단에 template내에 html태그'처럼' 생긴것들이 눈에 보입니다.
 
@@ -66,7 +74,7 @@ html태그에서는 볼수 없던 태그이죠?
 
 이름만 봐도 누군가 커스텀으로 만든것처럼 보입니다.
 
-<img src="/images/vue-script-components.png" />
+<img src={img3.src} width={img3.width} height={img3.height} alt="vue script components" />
 
 위 그림을 보시죠
 
@@ -172,7 +180,7 @@ export default {
 
 모두 작성하셨다면 아래 그림과 같은 소스코드형태가 됩니다.
 
-<img src="/images/vue-3byeworld.png" />
+<img src={img4.src} width={img4.width} height={img4.height} alt="vue 3 byeworld" />
 
 정말 간단한 싱글파일컴포넌트를 작성해보았습니다.
 
@@ -196,7 +204,7 @@ import한 ByeWorld컴포넌트를 components에도 추가해줍니다.
 
 설명대로 진행하셨다면, 소스코드는 아래그림처럼 됩니다.
 
-<img src="/images/vue-3app.png" />
+<img src={img5.src} width={img5.width} height={img5.height} alt="vue 3 app" />
 
 소스를 저장하시고 웹을 확인해보시면, 페이지 하단에 Good Bye World! 문구가 추가된걸 볼 수 있습니다.
 

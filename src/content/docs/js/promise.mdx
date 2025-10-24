@@ -3,6 +3,10 @@ layout: ../../../layouts/BlogPost.astro
 title: Promise API
 parent: Javascript
 ---
+
+import img from '../../../assets/images/promise-all-resolve.png';
+import img2 from '../../../assets/images/promise-all-reject.png';
+
 # Promise
 
 ES6에서 표준이 된 스펙입니다.
@@ -112,8 +116,8 @@ Promise.resolve(value)
 
 아래의 스크린샷은 Promise.all을 사용한 예제입니다.
 
-<img src="/images/promise-all-resolve.png"/>
-<img src="/images/promise-all-reject.png"/>
+<img src={img.src} width={img.width} height={img.height} alt="promise all resolve" />
+<img src={img2.src} width={img2.width} height={img2.height} alt="promise all reject" />
 
 ## Promise.race 예제
 

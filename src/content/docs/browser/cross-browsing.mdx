@@ -1,8 +1,12 @@
+
 ---
 title: 크로스 브라우징 이슈
 parent: browser
 layout: ../../../layouts/BlogPost.astro
 ---
+
+import ieChecker from '../../../assets/images/ieChecker.png';
+
 
 여러 브라우저에서 같은 시각적 표현과 기능을 제공해야함을 뜻한다.
 
@@ -38,7 +42,7 @@ ie checker라고 한다..ㅋㅋ
 
 이런식으로 ie의 버전을 확인한다고 한다.
 
-<img src="/images/ieChecker.png" />
+<img src={ieChecker.src} width={ieChecker.width} height={ieChecker.height} alt="ie checker" />
 
 # 크로스 브라우징 이슈들
 

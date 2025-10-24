@@ -3,6 +3,8 @@ title: http
 layout: ../../../layouts/BlogPost.astro
 ---
 
+import img from '../../../assets/images/http-msg.png';
+
 ## HTTP \(HyperText Transfer Protocol\)
 
 기본 port : 80
@@ -25,7 +27,7 @@ http에는 GET, POST, PUT, DELETE 등.. 다양한 메소드들이 있다.
 
 http로 request하면, 서버는 3자리로 된 응답코드와 함께 response한다.
 
-<img src="/images/http-msg.png" />
+<img src={img.src} width={img.width} height={img.height} alt="http message" />
 
 ```
 시작 줄(start-line)에는 실행되어야 할 요청, 또은 요청 수행에 대한 성공 또는 실패가 기록되어 있습니다.
