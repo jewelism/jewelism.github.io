@@ -9,6 +9,7 @@ type Props = MarkdownLayoutProps<{
 const {
   frontmatter: { title, nocomment },
 } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <html lang="ko">
@@ -16,7 +17,7 @@ const {
     <title>{title}</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5EML4ME9K"
     ></script>
-    <link rel="canonical" />
+    <link rel="canonical" href={canonical} />
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {

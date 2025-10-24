@@ -11,6 +11,7 @@ set -e
 cd docs
 
 # cp ../google6da897d4a0468b40.html ./google6da897d4a0468b40.html
+cp ../robot.txt ./robot.txt
 touch .nojekyll
 
 # if you are deploying to a custom domain
