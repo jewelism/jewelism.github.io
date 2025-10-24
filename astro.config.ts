@@ -2,6 +2,7 @@ import starlight from '@astrojs/starlight'
 import { defineConfig } from 'astro/config'
 import starlightThemeRapide from 'starlight-theme-rapide'
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   integrations: [
@@ -63,7 +64,9 @@ export default defineConfig({
       }],
     }),
     mdx(),
+    sitemap()
   ],
   site: 'https://jewelism.github.io/',
+  trailingSlash: 'always',
   outDir: 'docs',
 })
