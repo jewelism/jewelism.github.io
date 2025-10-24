@@ -10,7 +10,7 @@ set -e
 # navigate into the build output directory
 cd docs
 
-cp ../google6da897d4a0468b40.html ./google6da897d4a0468b40.html
+# cp ../google6da897d4a0468b40.html ./google6da897d4a0468b40.html
 touch .nojekyll
 
 # if you are deploying to a custom domain

@@ -1,5 +1,7 @@
 ---
 title: Gallup Top 5 CliftonStrengths
+layout: ../../../layouts/BlogPost.astro
+nocomment: true
 ---
 
 ## 가장 높은 특성 5개

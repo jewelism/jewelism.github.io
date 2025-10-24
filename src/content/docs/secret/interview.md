@@ -1,5 +1,7 @@
 ---
 title: 인터뷰 스킬
+layout: ../../../layouts/BlogPost.astro
+nocomment: true
 ---
 
 ### 상대방을 설득하는 나만의 노하우

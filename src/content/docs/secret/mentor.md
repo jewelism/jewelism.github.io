@@ -1,5 +1,7 @@
 ---
 title: 멘토링
+layout: ../../../layouts/BlogPost.astro
+nocomment: true
 ---
 
 ### JS 개발자 면접을 위한 멘토링 자료 정리

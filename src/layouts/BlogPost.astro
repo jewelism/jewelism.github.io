@@ -4,31 +4,60 @@ import type { MarkdownLayoutProps } from "astro";
 type Props = MarkdownLayoutProps<{
   // Define frontmatter props here
   title: string;
-  author: string;
-  date: string;
+  nocomment: boolean;
 }>;
-const { frontmatter } = Astro.props;
+const {
+  frontmatter: { title, nocomment },
+} = Astro.props;
 ---
 
 <html lang="ko">
   <head>
-    <title>{frontmatter.title}</title>
+    <title>{title}</title>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NG6SBMZL");
+    </script>
+    <!-- End Google Tag Manager -->
   </head>
   <body>
     <main>
       <article>
         <slot />
       </article>
-      <div id="comments" class="comments">
-        <script
-          src="https://utteranc.es/client.js"
-          repo="jewelism/jewelism.github.io"
-          issue-term={frontmatter.title}
-          label="comments"
-          theme="preferred-color-scheme"
-          crossorigin="anonymous"
-          async></script>
-      </div>
+      {
+        nocomment ? null : (
+          <div id="comments" class="comments">
+            <script
+              src="https://utteranc.es/client.js"
+              repo="jewelism/jewelism.github.io"
+              issue-term={title}
+              label="comments"
+              theme="preferred-color-scheme"
+              crossorigin="anonymous"
+              async
+            />
+          </div>
+        )
+      }
     </main>
   </body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NG6SBMZL"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
 </html>
