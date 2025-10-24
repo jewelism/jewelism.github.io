@@ -4,7 +4,7 @@ title: 크로스 브라우징 이슈
 parent: browser
 layout: ../../../layouts/BlogPost.astro
 ---
-
+import { Image } from 'astro:assets';
 import ieChecker from '../../../assets/images/ieChecker.png';
 
 
@@ -42,7 +42,15 @@ ie checker라고 한다..ㅋㅋ
 
 이런식으로 ie의 버전을 확인한다고 한다.
 
-<img src={ieChecker.src} width={ieChecker.width} height={ieChecker.height} alt="ie checker" />
+<Image
+  src={ieChecker}
+  alt="ie checker"
+  widths={[320, 640, 960]}
+  sizes="(max-width: 640px) 100vw, 640px"
+  formats={['avif','webp','png']}
+  quality={68}
+  loading="lazy"
+  decoding="async"/>
 
 # 크로스 브라우징 이슈들
 

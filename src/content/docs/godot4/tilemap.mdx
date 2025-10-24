@@ -2,7 +2,7 @@
 layout: ../../../layouts/BlogPost.astro
 title: TileMapLayer
 ---
-
+import { Image } from 'astro:assets';
 import img from '../../../assets/images/godot/tilemap1.png';
 import img2 from '../../../assets/images/godot/tilemap2.png';
 
@@ -34,7 +34,15 @@ TileMapLayer는 각 레이어에 대해 독립적인 타일맵을 생성하고 �
 
 각 레이어마다 다른 타일셋을 사용할 수도 있습니다. collision 등의 physics와 같은 속성은 타일셋에서 정의합니다
 
-<img src={img.src} width={img.width} height={img.height} alt="tilemap1" />
+<Image
+  src={img}
+  alt="tilemap1"
+  widths={[320, 640, 960]}
+  sizes="(max-width: 640px) 100vw, 640px"
+  formats={['avif','webp','png']}
+  quality={68}
+  loading="lazy"
+  decoding="async"/>
 
 타일셋을 설정한 후, 타일맵 에디터를 사용하여 각 레이어에 타일을 배치할 수 있습니다.
 
@@ -44,7 +52,15 @@ TileMapLayer는 각 레이어에 대해 독립적인 타일맵을 생성하고 �
 
 아까 타일셋 physics layer가 보일겁니다. 그걸 선택하면 해당 타일에 collision을 편집하고 추가할 수 있습니다.
 
-<img src={img2.src} width={img2.width} height={img2.height} alt="tilemap2" />
+<Image
+  src={img2}
+  alt="tilemap2"
+  widths={[320, 640, 960]}
+  sizes="(max-width: 640px) 100vw, 640px"
+  formats={['avif','webp','png']}
+  quality={68}
+  loading="lazy"
+  decoding="async"/>
 
 그 외에도 다양한 기능들이 있으니, 공식 문서나 튜토리얼을 참고하여 TileMapLayer를 활용한 멋진 2D 게임 맵을 만들어보세요!
 

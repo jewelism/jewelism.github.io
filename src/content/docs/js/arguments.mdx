@@ -2,7 +2,7 @@
 layout: ../../../layouts/BlogPost.astro
 title: arguments
 ---
-
+import { Image } from 'astro:assets';
 import img from '../../../assets/images/arguments.png';
 
 함수에는 보이지않지만 arguments라는 객체가 있습니다.
@@ -17,7 +17,15 @@ a('var1');
 
 ## 결과
 
-<img src={img.src} width={img.width} height={img.height} alt="arguments example image" />
+<Image
+  src={img}
+  alt="arguments example image"
+  widths={[320, 640, 960]}
+  sizes="(max-width: 640px) 100vw, 640px"
+  formats={['avif','webp','png']}
+  quality={68}
+  loading="lazy"
+  decoding="async"/>
 
 신기하게도 arguments라는 변수가 없는데,
 

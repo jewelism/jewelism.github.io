@@ -4,6 +4,7 @@ title: Promise API
 parent: Javascript
 ---
 
+import { Image } from 'astro:assets';
 import img from '../../../assets/images/promise-all-resolve.png';
 import img2 from '../../../assets/images/promise-all-reject.png';
 
@@ -115,10 +116,25 @@ Promise.resolve(value)
 ```
 
 아래의 스크린샷은 Promise.all을 사용한 예제입니다.
-
-<img src={img.src} width={img.width} height={img.height} alt="promise all resolve" />
-<img src={img2.src} width={img2.width} height={img2.height} alt="promise all reject" />
-
+<Image
+  src={img}
+  alt="promise all resolve"
+  widths={[320, 640, 960]}
+  sizes="(max-width: 640px) 100vw, 640px"
+  formats={['avif','webp','png']}
+  quality={68}
+  loading="lazy"
+  decoding="async"
+/>
+<Image
+  src={img2}
+  alt="promise all reject"
+  widths={[320, 640, 960]}
+  sizes="(max-width: 640px) 100vw, 640px"
+  formats={['avif','webp','png']}
+  quality={68}
+  loading="lazy"
+  decoding="async"/>
 ## Promise.race 예제
 
 ```javascript

@@ -2,7 +2,7 @@
 title: 자료구조
 layout: ../../../layouts/BlogPost.astro
 ---
-
+import { Image } from 'astro:assets';
 import img from '../../../assets/images/binary_tree.png';
 
 ## tree
@@ -27,7 +27,15 @@ B를 A의 자식 노드\(child node\)라고 한다.
 
 각각의 노드가 최대 두 개의 자식 노드를 가지는 트리 자료 구조이다.
 
-<img src={img.src} width={img.width} height={img.height} alt="binary tree" />
+<Image 
+  src={img}
+  alt="binary tree"
+  widths={[320, 640, 960]}
+  sizes="(max-width: 640px) 100vw, 640px"
+  formats={['avif','webp','png']}
+  quality={68}
+  loading="lazy"
+  decoding="async"/>
 
 _크기가 9이고, 높이가 3인 이진 트리_
 
