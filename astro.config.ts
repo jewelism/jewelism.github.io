@@ -52,6 +52,7 @@ export default defineConfig({
       ],
       social: [
         { href: 'https://github.com/jewelism', icon: 'github', label: 'GitHub' },
+        {href: 'https://jewelism.github.io/about/', icon: 'information', label: 'About Me' },
       ],
       title: 'Jewelry Dev',
       head: [{
