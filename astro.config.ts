@@ -15,6 +15,11 @@ export default defineConfig({
           items: ['index', 'about'],
         },
         {
+          label: 'AI',
+          autogenerate: { directory: 'ai' },
+          collapsed: true,
+        },
+        {
           label: 'Godot Engine',
           autogenerate: { directory: 'godot4' },
           collapsed: true,
